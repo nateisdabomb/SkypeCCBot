@@ -1,4 +1,4 @@
 SkypeCCBot
 ==========
 
-Our skype bot
+Our skype bot, and yes it is very derpy atm
