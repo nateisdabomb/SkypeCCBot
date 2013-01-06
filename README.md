@@ -1,0 +1,4 @@
+SkypeCCBot
+==========
+
+Our skype bot
