@@ -54,12 +54,15 @@ namespace CCBot
             }
             if (msg.Body.IndexOf(trigger) == 0)
             {
-                // Remove trigger string and make lower case
-                string command = msg.Body.Remove(0, trigger.Length).ToLower();
-                // Send processed message back to skype chat window
-                //skype.SendMessage(msg.Sender.Handle, nick + " Says: " + ProcessCommand(command));
-                msg.Chat.SendMessage(ProcessCommand(command));
-                WriteLine(ProcessCommand(command));
+                if (msg.Sender.FullName.Equals("Richard") || !msg.Sender.FullName.Equals("CorporateCraft"))
+                {
+                    // Remove trigger string and make lower case
+                    string command = msg.Body.Remove(0, trigger.Length).ToLower();
+                    // Send processed message back to skype chat window
+                    //skype.SendMessage(msg.Sender.Handle, nick + " Says: " + ProcessCommand(command));
+                    msg.Chat.SendMessage(ProcessCommand(command));
+                    WriteLine(ProcessCommand(command));
+                }
             }
         }
         public void WriteLine(string s)
@@ -75,7 +78,7 @@ namespace CCBot
                 if (String.IsNullOrEmpty(text)) return;
                 WriteLine(text);
                 IChat ichat = skype.get_Chat(Contacts.GetItemText(Contacts.SelectedItem));
-                ichat.SendMessage("test");
+                ichat.SendMessage(text);
                 txtMessage.Clear();
             }
         }
@@ -87,17 +90,11 @@ namespace CCBot
                 case "hello":
                     result = "Hello!";
                     break;
-                case "test":
-                    foreach (IChat chat in skype.Chats)
-                    {
-                        result += chat.FriendlyName + ", ";
-                    }
-                    break;
                 case "help":
                     result = "Sorry no help available";
                     break;
                 case "spam":
-                    result = "spam";//will cause spamm if haz a ! added
+                    result = "!spam";//will cause spamm if haz a ! added
                     break;
                 case "date":
                     result = "Current Date is: " +
